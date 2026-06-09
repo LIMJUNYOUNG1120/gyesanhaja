@@ -4,14 +4,53 @@
   box-sizing: border-box;
 }
 
+:root {
+  --bg: #f5f7fa;
+  --surface: #fff;
+  --text: #333;
+  --text-sub: #555;
+  --text-muted: #888;
+  --border: #ddd;
+  --primary: #1a73e8;
+  --primary-dark: #1557b0;
+  --result-bg: #f0f6ff;
+  --result-border: #d8e8ff;
+  --ad-bg: #e8f0fe;
+  --ad-border: #aac4f5;
+  --card-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  --card-hover-shadow: 0 6px 16px rgba(0,0,0,0.12);
+  --related-border: #e0e8ff;
+  --related-hover: #f0f6ff;
+}
+
+[data-theme="dark"] {
+  --bg: #1a1a2e;
+  --surface: #16213e;
+  --text: #e0e0e0;
+  --text-sub: #b0b0b0;
+  --text-muted: #888;
+  --border: #334;
+  --primary: #4a9eff;
+  --primary-dark: #2d7dd2;
+  --result-bg: #1e2d4a;
+  --result-border: #2a4a7a;
+  --ad-bg: #1e2d4a;
+  --ad-border: #2a4a7a;
+  --card-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  --card-hover-shadow: 0 6px 16px rgba(0,0,0,0.4);
+  --related-border: #2a3a5a;
+  --related-hover: #1e2d4a;
+}
+
 body {
   font-family: 'Noto Sans KR', sans-serif;
-  background: #f5f7fa;
-  color: #333;
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.2s, color 0.2s;
 }
 
 header {
-  background: #1a73e8;
+  background: var(--primary);
   padding: 16px 24px;
   display: flex;
   align-items: center;
@@ -36,6 +75,7 @@ header p.tagline {
 nav {
   display: flex;
   gap: 12px;
+  align-items: center;
 }
 
 nav a {
@@ -50,13 +90,28 @@ nav a:hover {
   text-decoration: underline;
 }
 
+.theme-toggle {
+  background: rgba(255,255,255,0.2);
+  border: none;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.2s;
+}
+
+.theme-toggle:hover {
+  background: rgba(255,255,255,0.3);
+}
+
 .ad-banner {
-  background: #e8f0fe;
-  border: 1px dashed #aac4f5;
+  background: var(--ad-bg);
+  border: 1px dashed var(--ad-border);
   text-align: center;
   padding: 12px;
   font-size: 0.8rem;
-  color: #888;
+  color: var(--text-muted);
   margin: 0;
 }
 
@@ -90,19 +145,19 @@ nav a:hover {
 }
 
 .card {
-  background: #fff;
+  background: var(--surface);
   border-radius: 12px;
   padding: 24px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: var(--card-shadow);
   text-decoration: none;
-  color: inherit;
+  color: var(--text);
   transition: transform 0.15s, box-shadow 0.15s;
   display: block;
 }
 
 .card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+  box-shadow: var(--card-hover-shadow);
 }
 
 .card-icon {
@@ -113,12 +168,12 @@ nav a:hover {
 .card h3 {
   font-size: 1.1rem;
   margin-bottom: 6px;
-  color: #1a73e8;
+  color: var(--primary);
 }
 
 .card p {
   font-size: 0.88rem;
-  color: #666;
+  color: var(--text-sub);
   line-height: 1.5;
 }
 
@@ -138,16 +193,16 @@ nav a:hover {
 }
 
 .calc-box {
-  background: #fff;
+  background: var(--surface);
   border-radius: 12px;
   padding: 28px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: var(--card-shadow);
 }
 
 .calc-box h2 {
   font-size: 1.3rem;
   margin-bottom: 20px;
-  color: #1a73e8;
+  color: var(--primary);
 }
 
 .form-group {
@@ -157,7 +212,7 @@ nav a:hover {
 .form-group label {
   display: block;
   font-size: 0.9rem;
-  color: #555;
+  color: var(--text-sub);
   margin-bottom: 6px;
   font-weight: 500;
 }
@@ -165,21 +220,23 @@ nav a:hover {
 .form-group input, .form-group select {
   width: 100%;
   padding: 10px 14px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border);
   border-radius: 8px;
   font-size: 1rem;
   outline: none;
   transition: border-color 0.2s;
+  background: var(--surface);
+  color: var(--text);
 }
 
 .form-group input:focus, .form-group select:focus {
-  border-color: #1a73e8;
+  border-color: var(--primary);
 }
 
 .btn-calc {
   width: 100%;
   padding: 12px;
-  background: #1a73e8;
+  background: var(--primary);
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -191,13 +248,13 @@ nav a:hover {
 }
 
 .btn-calc:hover {
-  background: #1557b0;
+  background: var(--primary-dark);
 }
 
 .result-box {
   margin-top: 20px;
   padding: 20px;
-  background: #f0f6ff;
+  background: var(--result-bg);
   border-radius: 10px;
   display: none;
 }
@@ -210,7 +267,7 @@ nav a:hover {
   display: flex;
   justify-content: space-between;
   padding: 8px 0;
-  border-bottom: 1px solid #d8e8ff;
+  border-bottom: 1px solid var(--result-border);
   font-size: 0.95rem;
 }
 
@@ -218,7 +275,7 @@ nav a:hover {
   border-bottom: none;
   font-weight: 700;
   font-size: 1.05rem;
-  color: #1a73e8;
+  color: var(--primary);
 }
 
 .result-item span:last-child {
@@ -226,13 +283,13 @@ nav a:hover {
 }
 
 .ad-side {
-  background: #e8f0fe;
-  border: 1px dashed #aac4f5;
+  background: var(--ad-bg);
+  border: 1px dashed var(--ad-border);
   border-radius: 8px;
   padding: 12px;
   text-align: center;
   font-size: 0.8rem;
-  color: #888;
+  color: var(--text-muted);
   min-height: 250px;
   display: flex;
   align-items: center;
@@ -240,13 +297,13 @@ nav a:hover {
 }
 
 .ad-result {
-  background: #e8f0fe;
-  border: 1px dashed #aac4f5;
+  background: var(--ad-bg);
+  border: 1px dashed var(--ad-border);
   border-radius: 8px;
   padding: 12px;
   text-align: center;
   font-size: 0.8rem;
-  color: #888;
+  color: var(--text-muted);
   margin-top: 20px;
   min-height: 90px;
   display: flex;
@@ -255,24 +312,24 @@ nav a:hover {
 }
 
 .info-section {
-  background: #fff;
+  background: var(--surface);
   border-radius: 12px;
   padding: 28px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: var(--card-shadow);
   margin-top: 24px;
 }
 
 .info-section h3 {
   font-size: 1.1rem;
-  color: #333;
+  color: var(--text);
   margin-bottom: 12px;
-  border-left: 4px solid #1a73e8;
+  border-left: 4px solid var(--primary);
   padding-left: 10px;
 }
 
 .info-section p {
   font-size: 0.9rem;
-  color: #555;
+  color: var(--text-sub);
   line-height: 1.7;
   margin-bottom: 12px;
 }
@@ -284,13 +341,13 @@ nav a:hover {
 .faq-item dt {
   font-weight: 600;
   font-size: 0.95rem;
-  color: #333;
+  color: var(--text);
   margin-bottom: 4px;
 }
 
 .faq-item dd {
   font-size: 0.88rem;
-  color: #666;
+  color: var(--text-sub);
   line-height: 1.6;
   margin-left: 0;
 }
@@ -314,12 +371,12 @@ nav a:hover {
 }
 
 .related-card {
-  background: #fff;
-  border: 1px solid #e0e8ff;
+  background: var(--surface);
+  border: 1px solid var(--related-border);
   border-radius: 8px;
   padding: 12px 16px;
   text-decoration: none;
-  color: #333;
+  color: var(--text);
   font-size: 0.88rem;
   transition: background 0.15s;
   display: flex;
@@ -328,8 +385,8 @@ nav a:hover {
 }
 
 .related-card:hover {
-  background: #f0f6ff;
-  color: #1a73e8;
+  background: var(--related-hover);
+  color: var(--primary);
 }
 
 footer {

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>월세 계산기 (전월세 전환율) - 계산하자</title>
+  <meta name="description" content="전세를 월세로, 월세를 전세로 전환할 때 필요한 금액을 계산합니다. 전월세 전환율 기준.">
+  <meta name="keywords" content="월세계산기, 전월세전환계산기, 전세월세전환율, 월세전세계산, 보증금계산기">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta property="og:title" content="월세 계산기 (전월세 전환율) - 계산하자">
+  <meta property="og:description" content="전세를 월세로, 월세를 전세로 전환할 때 필요한 금액을 계산합니다.">
+  <meta property="og:url" content="https://gyesanhaja.vercel.app/pages/monthly-rent.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <link rel="stylesheet" href="../css/style.css">
+  <script>(function(){var t=localStorage.getItem("theme")||"light";document.documentElement.setAttribute("data-theme",t);})();</script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TFQ0RTTE17"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-TFQ0RTTE17');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6876972146500506" crossorigin="anonymous"></script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"월세 계산기","description":"전세를 월세로, 월세를 전세로 전환할 때 필요한 금액을 계산합니다.","url":"https://gyesanhaja.vercel.app/pages/monthly-rent.html","applicationCategory":"FinanceApplication","operatingSystem":"All","inLanguage":"ko","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"}}</script>
+</head>
+<body>
+<header>
+  <a href="../index.html"><h1>계산하자 💰</h1><p class="tagline">금융 계산기 모음</p></a>
+  <nav>
+    <a href="about.html">소개</a>
+    <a href="privacy.html">개인정보처리방침</a>
+    <button class="theme-toggle" id="themeToggle">🌙 다크</button>
+  </nav>
+</header>
+<script src="../js/theme.js"></script>
+<div class="ad-banner">광고 영역 (AdSense 728x90)</div>
+<div class="container">
+  <div class="calc-layout">
+    <div>
+      <div class="calc-box">
+        <h2>🏠 월세 계산기</h2>
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:16px;">전월세 전환율 기준 (법정 상한: 연 10%)</p>
+        <div class="form-group">
+          <label>계산 방향</label>
+          <select id="direction" onchange="updateLabels()">
+            <option value="toRent">전세 → 월세 전환</option>
+            <option value="toDeposit">월세 → 전세 전환</option>
+          </select>
+        </div>
+        <div id="toRentFields">
+          <div class="form-group">
+            <label>전세 보증금 (원)</label>
+            <input type="number" id="deposit" placeholder="예: 200000000" min="0">
+          </div>
+          <div class="form-group">
+            <label>낮출 보증금 (원)</label>
+            <input type="number" id="newDeposit" placeholder="예: 50000000" min="0">
+          </div>
+        </div>
+        <div id="toDepositFields" style="display:none;">
+          <div class="form-group">
+            <label>현재 보증금 (원)</label>
+            <input type="number" id="curDeposit" placeholder="예: 50000000" min="0">
+          </div>
+          <div class="form-group">
+            <label>월세 (원)</label>
+            <input type="number" id="monthlyRent" placeholder="예: 800000" min="0">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>전월세 전환율 (%/년)</label>
+          <input type="number" id="rate" value="5" min="0.1" max="10" step="0.1">
+        </div>
+        <button class="btn-calc" onclick="calculate()">계산하기</button>
+        <div class="result-box" id="result">
+          <div class="result-item"><span id="r1label">전세 보증금</span><span id="r1"></span></div>
+          <div class="result-item"><span id="r2label">낮춘 보증금</span><span id="r2"></span></div>
+          <div class="result-item"><span id="r3label">월세</span><span id="r3"></span></div>
+          <div class="result-item"><span>적용 전환율</span><span id="r4"></span></div>
+        </div>
+      </div>
+      <div class="ad-result">광고 영역 (AdSense 336x280)</div>
+      <div class="info-section">
+        <h3>전월세 전환율이란?</h3>
+        <p>전세금을 월세로 전환할 때 적용하는 비율입니다. 주택임대차보호법에 따라 <strong>법정 상한은 연 10%</strong> (또는 기준금리 + 2%, 둘 중 낮은 것) 입니다.</p>
+        <p style="margin-top:8px;"><strong>계산 공식:</strong><br>월세 = (전세금 - 낮춘 보증금) × 전환율 ÷ 12</p>
+      </div>
+      <div class="info-section">
+        <h3>계산 예시</h3>
+        <p>전세 2억 → 보증금 5천만 원 월세로 전환 시 (전환율 5%)<br>
+        월세 = (2억 - 5천만) × 5% ÷ 12 = <strong>약 625,000원</strong></p>
+      </div>
+      <div class="info-section">
+        <h3>자주 묻는 질문 (FAQ)</h3>
+        <dl>
+          <div class="faq-item">
+            <dt>Q. 전환율 5%와 10%의 차이는?</dt>
+            <dd>A. 전환율이 높을수록 같은 보증금 차액에 대해 더 높은 월세가 됩니다. 집주인 입장에서는 높을수록 유리하고, 세입자는 낮을수록 유리합니다.</dd>
+          </div>
+          <div class="faq-item">
+            <dt>Q. 법정 상한을 초과한 전환은 무효인가요?</dt>
+            <dd>A. 법정 상한을 초과하는 부분은 무효이며, 초과 금액은 반환 청구할 수 있습니다.</dd>
+          </div>
+          <div class="faq-item">
+            <dt>Q. 전월세 전환 시 계약서를 다시 써야 하나요?</dt>
+            <dd>A. 전세에서 월세로 전환 시 새 계약서를 작성하고 확정일자를 받아야 보증금이 보호됩니다.</dd>
+          </div>
+        </dl>
+      </div>
+      <div class="related-section">
+        <h3>관련 계산기</h3>
+        <div class="related-grid">
+          <a href="jeonse.html" class="related-card">🏘️ 전세자금대출</a>
+          <a href="mortgage.html" class="related-card">🏠 주택담보대출</a>
+          <a href="loan.html" class="related-card">🏦 대출 상환금</a>
+          <a href="subscription-score.html" class="related-card">🏢 청약 가점</a>
+          <a href="capital-gains.html" class="related-card">🏗️ 양도소득세</a>
+        </div>
+      </div>
+    </div>
+    <div><div class="ad-side">광고 영역<br>(AdSense 300x250)</div></div>
+  </div>
+</div>
+<footer>
+  <p>© 2026 계산하자. All rights reserved.</p>
+  <p style="margin-top:8px;"><a href="about.html">소개</a><a href="privacy.html" style="margin-left:12px;">개인정보처리방침</a></p>
+  <p style="margin-top:8px; font-size:0.8rem; color:#666;">본 계산기는 참고용이며, 실제 금액과 차이가 있을 수 있습니다.</p>
+</footer>
+<script>
+function fmt(n) { return Math.round(n).toLocaleString('ko-KR') + '원'; }
+function updateLabels() {
+  const dir = document.getElementById('direction').value;
+  document.getElementById('toRentFields').style.display = dir === 'toRent' ? '' : 'none';
+  document.getElementById('toDepositFields').style.display = dir === 'toDeposit' ? '' : 'none';
+}
+function calculate() {
+  const dir = document.getElementById('direction').value;
+  const rate = parseFloat(document.getElementById('rate').value) / 100;
+  if (dir === 'toRent') {
+    const deposit = parseFloat(document.getElementById('deposit').value);
+    const newDeposit = parseFloat(document.getElementById('newDeposit').value) || 0;
+    if (!deposit) { alert('전세 보증금을 입력해주세요.'); return; }
+    const monthly = (deposit - newDeposit) * rate / 12;
+    document.getElementById('r1label').textContent = '전세 보증금';
+    document.getElementById('r2label').textContent = '낮춘 보증금';
+    document.getElementById('r3label').textContent = '월세';
+    document.getElementById('r1').textContent = fmt(deposit);
+    document.getElementById('r2').textContent = fmt(newDeposit);
+    document.getElementById('r3').textContent = fmt(monthly);
+  } else {
+    const curDeposit = parseFloat(document.getElementById('curDeposit').value) || 0;
+    const monthly = parseFloat(document.getElementById('monthlyRent').value);
+    if (!monthly) { alert('월세를 입력해주세요.'); return; }
+    const fullDeposit = curDeposit + (monthly * 12 / rate);
+    document.getElementById('r1label').textContent = '현재 보증금';
+    document.getElementById('r2label').textContent = '월세';
+    document.getElementById('r3label').textContent = '전세 환산 보증금';
+    document.getElementById('r1').textContent = fmt(curDeposit);
+    document.getElementById('r2').textContent = fmt(monthly);
+    document.getElementById('r3').textContent = fmt(fullDeposit);
+  }
+  document.getElementById('r4').textContent = (rate * 100).toFixed(1) + '%';
+  document.getElementById('result').classList.add('show');
+}
+</script>
+</body>
+</html>

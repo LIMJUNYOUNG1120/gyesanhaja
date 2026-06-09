@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>전세자금대출 계산기 - 계산하자</title>
+  <meta name="description" content="전세자금대출 월 상환금, 총 이자, 한도를 계산합니다. 2026년 최신 기준 전세대출 계산기.">
+  <meta name="keywords" content="전세자금대출계산기, 전세대출계산기, 전세대출이자, 전세대출한도, 버팀목전세대출">
+  <link rel="stylesheet" href="../css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6876972146500506" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<header>
+  <a href="../index.html">
+    <h1>계산하자 💰</h1>
+    <p class="tagline">금융 계산기 모음</p>
+  </a>
+  <nav>
+    <a href="about.html">소개</a>
+    <a href="privacy.html">개인정보처리방침</a>
+  </nav>
+</header>
+
+<div class="ad-banner">광고 영역 (AdSense 728x90)</div>
+
+<div class="container">
+  <div class="calc-layout">
+    <div>
+      <div class="calc-box">
+        <h2>🏘️ 전세자금대출 계산기</h2>
+
+        <div class="form-group">
+          <label>전세 보증금 (원)</label>
+          <input type="number" id="deposit" placeholder="예: 300000000" min="0">
+        </div>
+        <div class="form-group">
+          <label>대출 비율 (%)</label>
+          <select id="ratio">
+            <option value="70" selected>70% (일반)</option>
+            <option value="80">80% (버팀목 청년)</option>
+            <option value="90">90%</option>
+            <option value="100">직접 입력</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>연 이자율 (%)</label>
+          <input type="number" id="rate" placeholder="예: 3.8" step="0.01" min="0">
+        </div>
+        <div class="form-group">
+          <label>대출 기간</label>
+          <select id="term">
+            <option value="24">2년</option>
+            <option value="48" selected>4년</option>
+            <option value="60">5년</option>
+            <option value="120">10년</option>
+          </select>
+        </div>
+
+        <button class="btn-calc" onclick="calculate()">계산하기</button>
+
+        <div class="result-box" id="result">
+          <div class="result-item"><span>최대 대출금액</span><span id="loanAmount"></span></div>
+          <div class="result-item"><span>월 상환금</span><span id="monthly"></span></div>
+          <div class="result-item"><span>총 이자금액</span><span id="totalInterest"></span></div>
+          <div class="result-item"><span>총 상환금액</span><span id="total"></span></div>
+        </div>
+      </div>
+
+      <div class="ad-result">광고 영역 (AdSense 336x280)</div>
+
+      <div class="info-section">
+        <h3>전세자금대출 종류</h3>
+        <p>• <strong>버팀목 전세자금대출:</strong> 정부 지원 저금리 상품. 연소득 5,000만 원 이하 무주택자 대상. 금리 연 2~3%대.</p>
+        <p>• <strong>청년 전세자금대출:</strong> 만 19~34세 청년 대상. 보증금 3억 원 이하, 연소득 5,000만 원 이하. 금리 연 2%대.</p>
+        <p>• <strong>시중은행 전세대출:</strong> 소득 제한 없이 이용 가능. 금리는 연 3~5%대.</p>
+      </div>
+
+      <div class="info-section">
+        <h3>계산 예시</h3>
+        <p><strong>예시:</strong> 전세 보증금 3억 원 / 대출 70% / 연 3.8% / 4년</p>
+        <p>• 대출금액: 2억 1,000만 원<br>
+           • 월 상환금: 약 472만 원<br>
+           • 총 이자: 약 1,672만 원</p>
+      </div>
+
+      <div class="info-section">
+        <h3>자주 묻는 질문 (FAQ)</h3>
+        <dl>
+          <div class="faq-item">
+            <dt>Q. 전세대출 한도는 얼마인가요?</dt>
+            <dd>A. 일반적으로 전세 보증금의 70~80%까지 가능합니다. 버팀목 대출은 최대 2억 4,000만 원, 청년 전세대출은 최대 2억 원 한도가 있습니다.</dd>
+          </div>
+          <div class="faq-item">
+            <dt>Q. 전세대출 받으면 주택 구입이 제한되나요?</dt>
+            <dd>A. 전세대출 이용 중 주택을 구입하면 대출이 즉시 회수될 수 있습니다. 구입 계획이 있다면 사전에 은행에 문의하세요.</dd>
+          </div>
+          <div class="faq-item">
+            <dt>Q. 전세계약 갱신 시 대출도 연장되나요?</dt>
+            <dd>A. 전세계약 갱신 시 대출 연장 신청이 가능합니다. 단, 당시 금리와 조건이 재적용될 수 있습니다.</dd>
+          </div>
+          <div class="faq-item">
+            <dt>Q. 보증보험 가입이 필수인가요?</dt>
+            <dd>A. 대부분의 전세대출은 HUG(주택도시보증공사) 또는 SGI서울보증의 보증보험 가입이 필요합니다. 보증료는 대출금의 연 0.1~0.2% 수준입니다.</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+    <div>
+      <div class="ad-side">광고 영역<br>(AdSense 300x250)</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 계산하자. All rights reserved.</p>
+  <p style="margin-top:8px;"><a href="about.html">소개</a><a href="privacy.html" style="margin-left:12px;">개인정보처리방침</a></p>
+  <p style="margin-top:8px; font-size:0.8rem; color:#666;">본 계산기는 참고용이며, 실제 금융 상품과 차이가 있을 수 있습니다.</p>
+</footer>
+
+<script>
+function fmt(n) { return Math.round(n).toLocaleString('ko-KR') + '원'; }
+
+function calculate() {
+  const deposit = parseFloat(document.getElementById('deposit').value);
+  const ratio = parseFloat(document.getElementById('ratio').value) / 100;
+  const r = parseFloat(document.getElementById('rate').value) / 100 / 12;
+  const n = parseInt(document.getElementById('term').value);
+
+  if (!deposit || !r || !n) { alert('모든 항목을 입력해주세요.'); return; }
+
+  const P = deposit * ratio;
+  const monthly = P * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
+  const total = monthly * n;
+  const totalInterest = total - P;
+
+  document.getElementById('loanAmount').textContent = fmt(P);
+  document.getElementById('monthly').textContent = fmt(monthly);
+  document.getElementById('totalInterest').textContent = fmt(totalInterest);
+  document.getElementById('total').textContent = fmt(total);
+  document.getElementById('result').classList.add('show');
+}
+</script>
+</body>
+</html>

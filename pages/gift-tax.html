@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>증여세 계산기 (2026) - 계산하자</title>
+  <meta name="description" content="2026년 기준 증여세 계산기. 증여 금액과 관계(부모, 배우자 등)에 따른 증여세를 계산합니다.">
+  <meta name="keywords" content="증여세계산기, 증여세계산, 2026증여세, 증여세율, 증여공제한도">
+  <link rel="stylesheet" href="../css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6876972146500506" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<header>
+  <a href="../index.html">
+    <h1>계산하자 💰</h1>
+    <p class="tagline">금융 계산기 모음</p>
+  </a>
+  <nav>
+    <a href="about.html">소개</a>
+    <a href="privacy.html">개인정보처리방침</a>
+  </nav>
+</header>
+
+<div class="ad-banner">광고 영역 (AdSense 728x90)</div>
+
+<div class="container">
+  <div class="calc-layout">
+    <div>
+      <div class="calc-box">
+        <h2>🎁 증여세 계산기</h2>
+        <p style="font-size:0.85rem;color:#888;margin-bottom:16px;">2026년 기준 · 10년 합산 기준</p>
+
+        <div class="form-group">
+          <label>증여 금액 (원)</label>
+          <input type="number" id="amount" placeholder="예: 100000000" min="0">
+        </div>
+        <div class="form-group">
+          <label>증여자와의 관계</label>
+          <select id="relation">
+            <option value="600000000">배우자 (6억 원 공제)</option>
+            <option value="50000000" selected>직계존속 - 부모/조부모 (5천만 원 공제)</option>
+            <option value="50000000">직계비속 - 자녀/손자녀 (5천만 원 공제)</option>
+            <option value="10000000">기타 친족 (1천만 원 공제)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>수증자가 미성년자인가요?</label>
+          <select id="minor">
+            <option value="0">아니오</option>
+            <option value="1">예 (직계존속 공제 2천만 원)</option>
+          </select>
+        </div>
+
+        <button class="btn-calc" onclick="calculate()">계산하기</button>
+
+        <div class="result-box" id="result">
+          <div class="result-item"><span>증여 금액</span><span id="amountOut"></span></div>
+          <div class="result-item"><span>증여재산 공제</span><span id="deduction"></span></div>
+          <div class="result-item"><span>과세표준</span><span id="taxBase"></span></div>
+          <div class="result-item"><span>산출세액</span><span id="tax"></span></div>
+          <div class="result-item"><span>신고세액공제 (3%)</span><span id="discount"></span></div>
+          <div class="result-item"><span>최종 납부세액</span><span id="finalTax"></span></div>
+        </div>
+      </div>
+
+      <div class="ad-result">광고 영역 (AdSense 336x280)</div>
+
+      <div class="info-section">
+        <h3>증여재산 공제 한도 (10년 합산)</h3>
+        <p>• 배우자: 6억 원<br>
+           • 직계존속(부모·조부모): 5,000만 원<br>
+           • 직계비속(자녀·손자녀): 5,000만 원<br>
+           • 미성년 직계비속: 2,000만 원<br>
+           • 기타 친족(형제·사위·며느리 등): 1,000만 원</p>
+      </div>
+
+      <div class="info-section">
+        <h3>증여세율 (2026년 기준)</h3>
+        <p>• 1억 원 이하: 10%<br>
+           • 1억~5억 원: 20% (누진공제 1,000만 원)<br>
+           • 5억~10억 원: 30% (누진공제 6,000만 원)<br>
+           • 10억~30억 원: 40% (누진공제 1억 6,000만 원)<br>
+           • 30억 원 초과: 50% (누진공제 4억 6,000만 원)</p>
+      </div>
+
+      <div class="info-section">
+        <h3>자주 묻는 질문 (FAQ)</h3>
+        <dl>
+          <div class="faq-item">
+            <dt>Q. 증여세 신고는 언제까지 해야 하나요?</dt>
+            <dd>A. 증여받은 날이 속하는 달의 말일부터 3개월 이내에 신고해야 합니다. 기한 내 신고 시 산출세액의 3%를 공제받을 수 있습니다.</dd>
+          </div>
+          <div class="faq-item">
+            <dt>Q. 10년마다 공제가 리셋되나요?</dt>
+            <dd>A. 네, 증여재산 공제는 10년 단위로 합산합니다. 10년이 지나면 공제 한도가 다시 적용됩니다.</dd>
+          </div>
+          <div class="faq-item">
+            <dt>Q. 현금 증여도 신고해야 하나요?</dt>
+            <dd>A. 네, 현금 증여도 공제 한도를 초과하면 신고 의무가 있습니다. 미신고 시 가산세가 부과됩니다.</dd>
+          </div>
+          <div class="faq-item">
+            <dt>Q. 부모님께 집을 증여받으면?</dt>
+            <dd>A. 부동산 증여는 공시가격 기준으로 평가합니다. 5,000만 원 공제 후 초과분에 세율이 적용됩니다. 취득세도 별도로 납부해야 합니다.</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+    <div>
+      <div class="ad-side">광고 영역<br>(AdSense 300x250)</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 계산하자. All rights reserved.</p>
+  <p style="margin-top:8px;"><a href="about.html">소개</a><a href="privacy.html" style="margin-left:12px;">개인정보처리방침</a></p>
+  <p style="margin-top:8px; font-size:0.8rem; color:#666;">본 계산기는 참고용이며, 실제 세액과 차이가 있을 수 있습니다. 중요한 세무 사항은 세무사와 상담하세요.</p>
+</footer>
+
+<script>
+function fmt(n) { return Math.round(n).toLocaleString('ko-KR') + '원'; }
+
+function calculate() {
+  const amount = parseFloat(document.getElementById('amount').value);
+  let deduction = parseFloat(document.getElementById('relation').value);
+  const minor = document.getElementById('minor').value === '1';
+
+  if (!amount) { alert('증여 금액을 입력해주세요.'); return; }
+  if (minor) deduction = Math.min(deduction, 20000000);
+
+  const taxBase = Math.max(0, amount - deduction);
+
+  let tax = 0;
+  if (taxBase <= 100000000) tax = taxBase * 0.1;
+  else if (taxBase <= 500000000) tax = taxBase * 0.2 - 10000000;
+  else if (taxBase <= 1000000000) tax = taxBase * 0.3 - 60000000;
+  else if (taxBase <= 3000000000) tax = taxBase * 0.4 - 160000000;
+  else tax = taxBase * 0.5 - 460000000;
+
+  const discount = tax * 0.03;
+  const finalTax = tax - discount;
+
+  document.getElementById('amountOut').textContent = fmt(amount);
+  document.getElementById('deduction').textContent = fmt(Math.min(amount, deduction));
+  document.getElementById('taxBase').textContent = fmt(taxBase);
+  document.getElementById('tax').textContent = fmt(tax);
+  document.getElementById('discount').textContent = fmt(discount);
+  document.getElementById('finalTax').textContent = fmt(finalTax);
+  document.getElementById('result').classList.add('show');
+}
+</script>
+</body>
+</html>

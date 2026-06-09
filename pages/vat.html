@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>부가세 계산기 (VAT) - 계산하자</title>
+  <meta name="description" content="부가가치세(VAT) 계산기. 공급가액에서 부가세 포함 금액을 계산하거나, 부가세 포함 금액에서 공급가액을 역산합니다.">
+  <meta name="keywords" content="부가세계산기, VAT계산기, 부가가치세계산, 공급가액계산, 세금계산서">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta property="og:title" content="부가세 계산기 (VAT) - 계산하자">
+  <meta property="og:description" content="공급가액과 부가세를 빠르게 계산합니다.">
+  <meta property="og:url" content="https://gyesanhaja.vercel.app/pages/vat.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <link rel="stylesheet" href="../css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TFQ0RTTE17"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-TFQ0RTTE17');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6876972146500506" crossorigin="anonymous"></script>
+</head>
+<body>
+<header>
+  <a href="../index.html"><h1>계산하자 💰</h1><p class="tagline">금융 계산기 모음</p></a>
+  <nav>
+    <a href="about.html">소개</a>
+    <a href="privacy.html">개인정보처리방침</a>
+    <button class="theme-toggle" id="themeToggle">🌙 다크</button>
+  </nav>
+</header>
+<script src="../js/theme.js"></script>
+<div class="ad-banner">광고 영역 (AdSense 728x90)</div>
+<div class="container">
+  <div class="calc-layout">
+    <div>
+      <div class="calc-box">
+        <h2>🧾 부가세 계산기</h2>
+        <div class="form-group">
+          <label>계산 방향</label>
+          <select id="direction">
+            <option value="add">공급가액 → 부가세 포함 금액</option>
+            <option value="reverse">부가세 포함 금액 → 공급가액</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label id="inputLabel">공급가액 (원)</label>
+          <input type="number" id="amount" placeholder="예: 100000" min="0">
+        </div>
+        <div class="form-group">
+          <label>부가세율 (%)</label>
+          <select id="rate">
+            <option value="10" selected>10% (일반)</option>
+            <option value="0">0% (영세율)</option>
+          </select>
+        </div>
+        <button class="btn-calc" onclick="calculate()">계산하기</button>
+        <div class="result-box" id="result">
+          <div class="result-item"><span>공급가액</span><span id="supply"></span></div>
+          <div class="result-item"><span>부가세 (VAT)</span><span id="vat"></span></div>
+          <div class="result-item"><span>합계금액 (부가세 포함)</span><span id="total"></span></div>
+        </div>
+      </div>
+      <div class="ad-result">광고 영역 (AdSense 336x280)</div>
+      <div class="info-section">
+        <h3>부가가치세란?</h3>
+        <p>부가가치세(VAT)는 상품 판매나 서비스 제공 시 발생하는 세금으로, 최종 소비자가 부담합니다. 한국의 일반 세율은 10%입니다.</p>
+        <p>사업자는 고객에게 받은 부가세(매출세액)에서 구입 시 낸 부가세(매입세액)를 차감한 금액을 납부합니다.</p>
+      </div>
+      <div class="info-section">
+        <h3>계산 예시</h3>
+        <p>• 공급가액 100,000원 → 부가세 10,000원 → 합계 110,000원<br>
+           • 부가세 포함 110,000원 → 공급가액 100,000원 → 부가세 10,000원</p>
+      </div>
+      <div class="info-section">
+        <h3>자주 묻는 질문 (FAQ)</h3>
+        <dl>
+          <div class="faq-item">
+            <dt>Q. 간이과세자도 부가세를 내나요?</dt>
+            <dd>A. 연 매출 8,000만 원 미만의 간이과세자는 일반과세자보다 낮은 세율(업종별 1.5~4%)을 적용받습니다.</dd>
+          </div>
+          <div class="faq-item">
+            <dt>Q. 영세율이란?</dt>
+            <dd>A. 수출 거래 등에 적용되는 0% 세율입니다. 부가세가 0원이지만 매입 부가세는 환급받을 수 있습니다.</dd>
+          </div>
+          <div class="faq-item">
+            <dt>Q. 부가세 신고는 언제 하나요?</dt>
+            <dd>A. 일반과세자는 1년에 2번(1월, 7월), 간이과세자는 1년에 1번(1월) 신고합니다.</dd>
+          </div>
+        </dl>
+      </div>
+      <div class="related-section">
+        <h3>관련 계산기</h3>
+        <div class="related-grid">
+          <a href="freelancer-tax.html" class="related-card">💻 프리랜서 세금</a>
+          <a href="gift-tax.html" class="related-card">🎁 증여세</a>
+          <a href="capital-gains.html" class="related-card">🏗️ 양도소득세</a>
+          <a href="salary.html" class="related-card">💼 연봉 실수령액</a>
+          <a href="loan.html" class="related-card">🏦 대출 상환금</a>
+        </div>
+      </div>
+    </div>
+    <div><div class="ad-side">광고 영역<br>(AdSense 300x250)</div></div>
+  </div>
+</div>
+<footer>
+  <p>© 2026 계산하자. All rights reserved.</p>
+  <p style="margin-top:8px;"><a href="about.html">소개</a><a href="privacy.html" style="margin-left:12px;">개인정보처리방침</a></p>
+  <p style="margin-top:8px; font-size:0.8rem; color:#666;">본 계산기는 참고용입니다.</p>
+</footer>
+<script>
+function fmt(n) { return Math.round(n).toLocaleString('ko-KR') + '원'; }
+document.getElementById('direction').addEventListener('change', function() {
+  document.getElementById('inputLabel').textContent = this.value === 'add' ? '공급가액 (원)' : '부가세 포함 금액 (원)';
+});
+function calculate() {
+  const dir = document.getElementById('direction').value;
+  const amount = parseFloat(document.getElementById('amount').value);
+  const rate = parseFloat(document.getElementById('rate').value) / 100;
+  if (!amount) { alert('금액을 입력해주세요.'); return; }
+  let supply, vat, total;
+  if (dir === 'add') {
+    supply = amount;
+    vat = amount * rate;
+    total = amount + vat;
+  } else {
+    total = amount;
+    supply = amount / (1 + rate);
+    vat = total - supply;
+  }
+  document.getElementById('supply').textContent = fmt(supply);
+  document.getElementById('vat').textContent = fmt(vat);
+  document.getElementById('total').textContent = fmt(total);
+  document.getElementById('result').classList.add('show');
+}
+</script>
+</body>
+</html>

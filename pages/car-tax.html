@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>자동차 취득세 계산기 - 계산하자</title>
+  <meta name="description" content="자동차 구입 시 납부해야 할 취득세를 계산합니다. 신차, 중고차 모두 계산 가능.">
+  <meta name="keywords" content="자동차취득세계산기, 차량취득세계산, 자동차세금계산, 신차취득세, 중고차취득세">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta property="og:title" content="자동차 취득세 계산기 - 계산하자">
+  <meta property="og:description" content="자동차 구입 시 납부해야 할 취득세를 계산합니다.">
+  <meta property="og:url" content="https://gyesanhaja.vercel.app/pages/car-tax.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <link rel="stylesheet" href="../css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TFQ0RTTE17"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-TFQ0RTTE17');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6876972146500506" crossorigin="anonymous"></script>
+</head>
+<body>
+<header>
+  <a href="../index.html"><h1>계산하자 💰</h1><p class="tagline">금융 계산기 모음</p></a>
+  <nav>
+    <a href="about.html">소개</a>
+    <a href="privacy.html">개인정보처리방침</a>
+    <button class="theme-toggle" id="themeToggle">🌙 다크</button>
+  </nav>
+</header>
+<script src="../js/theme.js"></script>
+<div class="ad-banner">광고 영역 (AdSense 728x90)</div>
+<div class="container">
+  <div class="calc-layout">
+    <div>
+      <div class="calc-box">
+        <h2>🚗 자동차 취득세 계산기</h2>
+        <div class="form-group">
+          <label>차량 종류</label>
+          <select id="carType">
+            <option value="0.07">비영업용 승용차 (7%)</option>
+            <option value="0.05">경차 (4%) / 전기차 감면 적용</option>
+            <option value="0.05">승합차·화물차 (5%)</option>
+            <option value="0.02">경차 (2%)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>차량 가격 (원)</label>
+          <input type="number" id="price" placeholder="예: 35000000" min="0">
+        </div>
+        <div class="form-group">
+          <label>전기차·하이브리드 감면</label>
+          <select id="discount">
+            <option value="0">해당없음</option>
+            <option value="1">전기차 (취득세 140만 원 한도 감면)</option>
+            <option value="2">하이브리드 (취득세 40만 원 한도 감면)</option>
+          </select>
+        </div>
+        <button class="btn-calc" onclick="calculate()">계산하기</button>
+        <div class="result-box" id="result">
+          <div class="result-item"><span>차량 가격</span><span id="priceOut"></span></div>
+          <div class="result-item"><span>취득세 (세전)</span><span id="taxBefore"></span></div>
+          <div class="result-item"><span>감면액</span><span id="discountAmount"></span></div>
+          <div class="result-item"><span>최종 취득세</span><span id="finalTax"></span></div>
+          <div class="result-item"><span>총 비용 (차량가 + 취득세)</span><span id="total"></span></div>
+        </div>
+      </div>
+      <div class="ad-result">광고 영역 (AdSense 336x280)</div>
+      <div class="info-section">
+        <h3>자동차 취득세율</h3>
+        <p>• 비영업용 승용차: 7%<br>
+           • 승합차·화물차·특수차: 5%<br>
+           • 경차: 4% (단, 경차는 취득세 75만 원 한도 면제)<br>
+           • 영업용 차량: 4%</p>
+        <p style="margin-top:8px;">취득세 외에도 공채 매입, 등록세, 번호판 비용 등 추가 비용이 발생할 수 있습니다.</p>
+      </div>
+      <div class="info-section">
+        <h3>자주 묻는 질문 (FAQ)</h3>
+        <dl>
+          <div class="faq-item">
+            <dt>Q. 중고차 취득세는 어떻게 계산되나요?</dt>
+            <dd>A. 중고차는 시가표준액(국토부 고시가)과 거래가격 중 높은 금액을 기준으로 취득세를 계산합니다.</dd>
+          </div>
+          <div class="faq-item">
+            <dt>Q. 취득세는 언제 납부하나요?</dt>
+            <dd>A. 차량 등록일로부터 60일 이내에 납부해야 합니다. 미납 시 가산세가 부과됩니다.</dd>
+          </div>
+          <div class="faq-item">
+            <dt>Q. 장애인·국가유공자 감면이 있나요?</dt>
+            <dd>A. 장애인, 국가유공자 등은 1대에 한해 취득세가 면제되거나 감면됩니다. 해당 지자체에 문의하세요.</dd>
+          </div>
+        </dl>
+      </div>
+      <div class="related-section">
+        <h3>관련 계산기</h3>
+        <div class="related-grid">
+          <a href="loan.html" class="related-card">🏦 대출 상환금</a>
+          <a href="gift-tax.html" class="related-card">🎁 증여세</a>
+          <a href="capital-gains.html" class="related-card">🏗️ 양도소득세</a>
+          <a href="salary.html" class="related-card">💼 연봉 실수령액</a>
+          <a href="vat.html" class="related-card">🧾 부가세</a>
+        </div>
+      </div>
+    </div>
+    <div><div class="ad-side">광고 영역<br>(AdSense 300x250)</div></div>
+  </div>
+</div>
+<footer>
+  <p>© 2026 계산하자. All rights reserved.</p>
+  <p style="margin-top:8px;"><a href="about.html">소개</a><a href="privacy.html" style="margin-left:12px;">개인정보처리방침</a></p>
+  <p style="margin-top:8px; font-size:0.8rem; color:#666;">본 계산기는 참고용이며, 실제 세액과 차이가 있을 수 있습니다.</p>
+</footer>
+<script>
+function fmt(n) { return Math.round(n).toLocaleString('ko-KR') + '원'; }
+function calculate() {
+  const price = parseFloat(document.getElementById('price').value);
+  const rate = parseFloat(document.getElementById('carType').value);
+  const discount = parseInt(document.getElementById('discount').value);
+  if (!price) { alert('차량 가격을 입력해주세요.'); return; }
+  const taxBefore = price * rate;
+  let discountAmount = 0;
+  if (discount === 1) discountAmount = Math.min(taxBefore, 1400000);
+  else if (discount === 2) discountAmount = Math.min(taxBefore, 400000);
+  const finalTax = Math.max(0, taxBefore - discountAmount);
+  const total = price + finalTax;
+  document.getElementById('priceOut').textContent = fmt(price);
+  document.getElementById('taxBefore').textContent = fmt(taxBefore);
+  document.getElementById('discountAmount').textContent = fmt(discountAmount);
+  document.getElementById('finalTax').textContent = fmt(finalTax);
+  document.getElementById('total').textContent = fmt(total);
+  document.getElementById('result').classList.add('show');
+}
+</script>
+</body>
+</html>

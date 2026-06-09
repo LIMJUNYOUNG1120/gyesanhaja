@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>청약 가점 계산기 - 계산하자</title>
+  <meta name="description" content="아파트 청약 가점제 점수를 계산합니다. 무주택 기간, 부양가족 수, 청약통장 가입 기간으로 가점을 확인하세요.">
+  <meta name="keywords" content="청약가점계산기, 청약점수계산기, 아파트청약가점, 청약당첨가점, 청약통장가점">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta property="og:title" content="청약 가점 계산기 - 계산하자">
+  <meta property="og:description" content="무주택 기간, 부양가족 수, 청약통장 가입기간으로 청약 가점을 계산합니다.">
+  <meta property="og:url" content="https://gyesanhaja.vercel.app/pages/subscription-score.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <link rel="stylesheet" href="../css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TFQ0RTTE17"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-TFQ0RTTE17');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6876972146500506" crossorigin="anonymous"></script>
+</head>
+<body>
+<header>
+  <a href="../index.html"><h1>계산하자 💰</h1><p class="tagline">금융 계산기 모음</p></a>
+  <nav>
+    <a href="about.html">소개</a>
+    <a href="privacy.html">개인정보처리방침</a>
+    <button class="theme-toggle" id="themeToggle">🌙 다크</button>
+  </nav>
+</header>
+<script src="../js/theme.js"></script>
+<div class="ad-banner">광고 영역 (AdSense 728x90)</div>
+<div class="container">
+  <div class="calc-layout">
+    <div>
+      <div class="calc-box">
+        <h2>🏢 청약 가점 계산기</h2>
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:16px;">최대 84점 기준</p>
+        <div class="form-group">
+          <label>무주택 기간</label>
+          <select id="homeless">
+            <option value="2">1년 미만 (2점)</option>
+            <option value="4">1년 이상 ~ 2년 미만 (4점)</option>
+            <option value="6">2년 이상 ~ 3년 미만 (6점)</option>
+            <option value="8">3년 이상 ~ 4년 미만 (8점)</option>
+            <option value="10">4년 이상 ~ 5년 미만 (10점)</option>
+            <option value="12">5년 이상 ~ 6년 미만 (12점)</option>
+            <option value="14">6년 이상 ~ 7년 미만 (14점)</option>
+            <option value="16">7년 이상 ~ 8년 미만 (16점)</option>
+            <option value="18">8년 이상 ~ 9년 미만 (18점)</option>
+            <option value="20">9년 이상 ~ 10년 미만 (20점)</option>
+            <option value="22">10년 이상 ~ 11년 미만 (22점)</option>
+            <option value="24">11년 이상 ~ 12년 미만 (24점)</option>
+            <option value="26">12년 이상 ~ 13년 미만 (26점)</option>
+            <option value="28">13년 이상 ~ 14년 미만 (28점)</option>
+            <option value="30">14년 이상 ~ 15년 미만 (30점)</option>
+            <option value="32" selected>15년 이상 (32점)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>부양가족 수 (본인 제외)</label>
+          <select id="family">
+            <option value="5">0명 (5점)</option>
+            <option value="10">1명 (10점)</option>
+            <option value="15">2명 (15점)</option>
+            <option value="20">3명 (20점)</option>
+            <option value="25">4명 (25점)</option>
+            <option value="30">5명 (30점)</option>
+            <option value="35" selected>6명 이상 (35점)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>청약통장 가입 기간</label>
+          <select id="account">
+            <option value="1">6개월 미만 (1점)</option>
+            <option value="2">6개월 이상 ~ 1년 미만 (2점)</option>
+            <option value="3">1년 이상 ~ 2년 미만 (3점)</option>
+            <option value="4">2년 이상 ~ 3년 미만 (4점)</option>
+            <option value="5">3년 이상 ~ 4년 미만 (5점)</option>
+            <option value="6">4년 이상 ~ 5년 미만 (6점)</option>
+            <option value="7">5년 이상 ~ 6년 미만 (7점)</option>
+            <option value="8">6년 이상 ~ 7년 미만 (8점)</option>
+            <option value="9">7년 이상 ~ 8년 미만 (9점)</option>
+            <option value="10">8년 이상 ~ 9년 미만 (10점)</option>
+            <option value="11">9년 이상 ~ 10년 미만 (11점)</option>
+            <option value="12">10년 이상 ~ 11년 미만 (12점)</option>
+            <option value="13">11년 이상 ~ 12년 미만 (13점)</option>
+            <option value="14">12년 이상 ~ 13년 미만 (14점)</option>
+            <option value="15">13년 이상 ~ 14년 미만 (15점)</option>
+            <option value="17" selected>15년 이상 (17점)</option>
+          </select>
+        </div>
+        <button class="btn-calc" onclick="calculate()">계산하기</button>
+        <div class="result-box" id="result">
+          <div class="result-item"><span>무주택 기간 점수</span><span id="homelessScore"></span></div>
+          <div class="result-item"><span>부양가족 점수</span><span id="familyScore"></span></div>
+          <div class="result-item"><span>청약통장 점수</span><span id="accountScore"></span></div>
+          <div class="result-item"><span>총 가점</span><span id="total"></span></div>
+        </div>
+      </div>
+      <div class="ad-result">광고 영역 (AdSense 336x280)</div>
+      <div class="info-section">
+        <h3>청약 가점제 항목별 배점</h3>
+        <p>• <strong>무주택 기간:</strong> 최대 32점 (1년 미만 2점 ~ 15년 이상 32점)<br>
+           • <strong>부양가족 수:</strong> 최대 35점 (0명 5점 ~ 6명 이상 35점)<br>
+           • <strong>청약통장 가입 기간:</strong> 최대 17점 (6개월 미만 1점 ~ 15년 이상 17점)</p>
+        <p style="margin-top:8px;">총 최대 84점이며, 가점이 높을수록 당첨 확률이 높아집니다.</p>
+      </div>
+      <div class="info-section">
+        <h3>자주 묻는 질문 (FAQ)</h3>
+        <dl>
+          <div class="faq-item">
+            <dt>Q. 무주택 기간은 어떻게 계산하나요?</dt>
+            <dd>A. 만 30세 이후부터 또는 결혼한 날부터 현재까지 무주택인 기간을 계산합니다. (30세 이전 결혼 시 혼인신고일 기준)</dd>
+          </div>
+          <div class="faq-item">
+            <dt>Q. 부양가족에 부모님도 포함되나요?</dt>
+            <dd>A. 동일 주민등록지에 등재된 직계존속(부모·조부모)으로 3년 이상 동거한 경우 부양가족으로 인정됩니다.</dd>
+          </div>
+          <div class="faq-item">
+            <dt>Q. 가점제와 추첨제 차이는?</dt>
+            <dd>A. 가점제는 점수 순으로 당첨자를 선발하고, 추첨제는 무작위로 선발합니다. 전용 85㎡ 이하 민영주택은 가점제와 추첨제를 혼합 적용합니다.</dd>
+          </div>
+        </dl>
+      </div>
+      <div class="related-section">
+        <h3>관련 계산기</h3>
+        <div class="related-grid">
+          <a href="mortgage.html" class="related-card">🏠 주택담보대출</a>
+          <a href="jeonse.html" class="related-card">🏘️ 전세자금대출</a>
+          <a href="capital-gains.html" class="related-card">🏗️ 양도소득세</a>
+          <a href="gift-tax.html" class="related-card">🎁 증여세</a>
+          <a href="loan.html" class="related-card">🏦 대출 상환금</a>
+        </div>
+      </div>
+    </div>
+    <div><div class="ad-side">광고 영역<br>(AdSense 300x250)</div></div>
+  </div>
+</div>
+<footer>
+  <p>© 2026 계산하자. All rights reserved.</p>
+  <p style="margin-top:8px;"><a href="about.html">소개</a><a href="privacy.html" style="margin-left:12px;">개인정보처리방침</a></p>
+  <p style="margin-top:8px; font-size:0.8rem; color:#666;">본 계산기는 참고용이며, 실제 청약 가점과 차이가 있을 수 있습니다.</p>
+</footer>
+<script>
+function calculate() {
+  const h = parseInt(document.getElementById('homeless').value);
+  const f = parseInt(document.getElementById('family').value);
+  const a = parseInt(document.getElementById('account').value);
+  const total = h + f + a;
+  document.getElementById('homelessScore').textContent = h + '점';
+  document.getElementById('familyScore').textContent = f + '점';
+  document.getElementById('accountScore').textContent = a + '점';
+  document.getElementById('total').textContent = total + '점 / 84점';
+  document.getElementById('result').classList.add('show');
+}
+</script>
+</body>
+</html>

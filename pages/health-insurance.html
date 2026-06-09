@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>건강보험료 계산기 (2026) - 계산하자</title>
+  <meta name="description" content="2026년 기준 건강보험료 계산기. 직장가입자와 지역가입자의 건강보험료를 계산합니다.">
+  <meta name="keywords" content="건강보험료계산기, 2026건강보험료, 직장가입자건강보험료, 지역가입자건강보험료, 건강보험계산">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta property="og:title" content="건강보험료 계산기 (2026) - 계산하자">
+  <meta property="og:description" content="2026년 기준 직장·지역 건강보험료를 계산합니다.">
+  <meta property="og:url" content="https://gyesanhaja.vercel.app/pages/health-insurance.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <link rel="stylesheet" href="../css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TFQ0RTTE17"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-TFQ0RTTE17');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6876972146500506" crossorigin="anonymous"></script>
+</head>
+<body>
+<header>
+  <a href="../index.html"><h1>계산하자 💰</h1><p class="tagline">금융 계산기 모음</p></a>
+  <nav>
+    <a href="about.html">소개</a>
+    <a href="privacy.html">개인정보처리방침</a>
+    <button class="theme-toggle" id="themeToggle">🌙 다크</button>
+  </nav>
+</header>
+<script src="../js/theme.js"></script>
+<div class="ad-banner">광고 영역 (AdSense 728x90)</div>
+<div class="container">
+  <div class="calc-layout">
+    <div>
+      <div class="calc-box">
+        <h2>🏥 건강보험료 계산기</h2>
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:16px;">2026년 기준</p>
+        <div class="form-group">
+          <label>가입 유형</label>
+          <select id="type" onchange="toggleType()">
+            <option value="employee">직장가입자</option>
+            <option value="local">지역가입자</option>
+          </select>
+        </div>
+        <div id="employeeSection">
+          <div class="form-group">
+            <label>월 보수월액 (원)</label>
+            <input type="number" id="salary" placeholder="예: 3000000" min="0">
+          </div>
+        </div>
+        <div id="localSection" style="display:none;">
+          <div class="form-group">
+            <label>연간 소득 (원)</label>
+            <input type="number" id="income" placeholder="예: 30000000" min="0">
+          </div>
+          <div class="form-group">
+            <label>재산세 과세표준 (원, 없으면 0)</label>
+            <input type="number" id="property" placeholder="예: 100000000" min="0" value="0">
+          </div>
+        </div>
+        <button class="btn-calc" onclick="calculate()">계산하기</button>
+        <div class="result-box" id="result">
+          <div class="result-item"><span>건강보험료 (본인부담)</span><span id="health"></span></div>
+          <div class="result-item"><span>장기요양보험료</span><span id="care"></span></div>
+          <div class="result-item"><span id="employerLabel">사용자 부담분</span><span id="employer"></span></div>
+          <div class="result-item"><span>총 납부액 (본인)</span><span id="total"></span></div>
+        </div>
+      </div>
+      <div class="ad-result">광고 영역 (AdSense 336x280)</div>
+      <div class="info-section">
+        <h3>2026년 건강보험료율</h3>
+        <p>• <strong>직장가입자:</strong> 보수월액의 7.09% (근로자 3.545%, 사용자 3.545%)<br>
+           • <strong>장기요양보험료:</strong> 건강보험료의 12.95%<br>
+           • <strong>지역가입자:</strong> 소득·재산·자동차 등을 점수화하여 부과</p>
+      </div>
+      <div class="info-section">
+        <h3>자주 묻는 질문 (FAQ)</h3>
+        <dl>
+          <div class="faq-item">
+            <dt>Q. 건강보험료 상한액이 있나요?</dt>
+            <dd>A. 네, 2026년 직장가입자 건강보험료 상한액은 월 약 391만 원(본인부담)입니다.</dd>
+          </div>
+          <div class="faq-item">
+            <dt>Q. 피부양자는 보험료를 내지 않나요?</dt>
+            <dd>A. 일정 소득·재산 기준 이하의 피부양자는 별도 보험료 없이 건강보험 혜택을 받을 수 있습니다.</dd>
+          </div>
+          <div class="faq-item">
+            <dt>Q. 퇴직 후 지역가입자로 전환되면 보험료가 오르나요?</dt>
+            <dd>A. 직장 퇴직 후 지역가입자가 되면 재산·소득 기준으로 산정되어 보험료가 높아질 수 있습니다. 임의계속가입 제도를 활용하면 퇴직 후 최대 36개월간 직장가입자 보험료 수준을 유지할 수 있습니다.</dd>
+          </div>
+        </dl>
+      </div>
+      <div class="related-section">
+        <h3>관련 계산기</h3>
+        <div class="related-grid">
+          <a href="salary.html" class="related-card">💼 연봉 실수령액</a>
+          <a href="national-pension.html" class="related-card">🧓 국민연금</a>
+          <a href="severance.html" class="related-card">👔 퇴직금</a>
+          <a href="freelancer-tax.html" class="related-card">💻 프리랜서 세금</a>
+          <a href="loan.html" class="related-card">🏦 대출 상환금</a>
+        </div>
+      </div>
+    </div>
+    <div><div class="ad-side">광고 영역<br>(AdSense 300x250)</div></div>
+  </div>
+</div>
+<footer>
+  <p>© 2026 계산하자. All rights reserved.</p>
+  <p style="margin-top:8px;"><a href="about.html">소개</a><a href="privacy.html" style="margin-left:12px;">개인정보처리방침</a></p>
+  <p style="margin-top:8px; font-size:0.8rem; color:#666;">본 계산기는 참고용이며, 실제 보험료와 차이가 있을 수 있습니다.</p>
+</footer>
+<script>
+function toggleType() {
+  const t = document.getElementById('type').value;
+  document.getElementById('employeeSection').style.display = t === 'employee' ? 'block' : 'none';
+  document.getElementById('localSection').style.display = t === 'local' ? 'block' : 'none';
+  document.getElementById('employerLabel').textContent = t === 'employee' ? '사용자 부담분' : '해당없음';
+}
+function fmt(n) { return Math.round(n).toLocaleString('ko-KR') + '원'; }
+function calculate() {
+  const type = document.getElementById('type').value;
+  let health, care, employer;
+  if (type === 'employee') {
+    const salary = parseFloat(document.getElementById('salary').value);
+    if (!salary) { alert('보수월액을 입력해주세요.'); return; }
+    health = salary * 0.03545;
+    care = health * 0.1295;
+    employer = health + care;
+  } else {
+    const income = parseFloat(document.getElementById('income').value) || 0;
+    const property = parseFloat(document.getElementById('property').value) || 0;
+    if (!income && !property) { alert('소득 또는 재산을 입력해주세요.'); return; }
+    health = (income * 0.0709 / 12) + (property * 0.0022 / 12);
+    care = health * 0.1295;
+    employer = 0;
+  }
+  const total = health + care;
+  document.getElementById('health').textContent = fmt(health);
+  document.getElementById('care').textContent = fmt(care);
+  document.getElementById('employer').textContent = employer > 0 ? fmt(employer) : '-';
+  document.getElementById('total').textContent = fmt(total);
+  document.getElementById('result').classList.add('show');
+}
+</script>
+</body>
+</html>

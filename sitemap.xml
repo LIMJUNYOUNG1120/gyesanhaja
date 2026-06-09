@@ -121,6 +121,24 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://gyesanhaja.vercel.app/pages/weekly-holiday.html</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://gyesanhaja.vercel.app/pages/annual-leave.html</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://gyesanhaja.vercel.app/pages/minimum-wage.html</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://gyesanhaja.vercel.app/pages/about.html</loc>
     <lastmod>2026-06-09</lastmod>
     <changefreq>yearly</changefreq>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>연차 계산기 - 계산하자</title>
+  <meta name="description" content="입사일 기준 연차 발생일수를 계산합니다. 1년 미만 월차, 1년 이상 연차 모두 계산 가능합니다.">
+  <meta name="keywords" content="연차계산기, 연차일수계산, 연차발생기준, 월차계산기, 연차수당계산">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta property="og:title" content="연차 계산기 - 계산하자">
+  <meta property="og:description" content="입사일 기준 연차 발생일수와 연차수당을 계산합니다.">
+  <meta property="og:url" content="https://gyesanhaja.vercel.app/pages/annual-leave.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <link rel="canonical" href="https://gyesanhaja.vercel.app/pages/annual-leave.html">
+  <link rel="stylesheet" href="../css/style.css">
+  <script>(function(){var t=localStorage.getItem("theme")||"light";document.documentElement.setAttribute("data-theme",t);})();</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TFQ0RTTE17"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-TFQ0RTTE17');</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6876972146500506" crossorigin="anonymous"></script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"연차 계산기","description":"입사일 기준 연차 발생일수와 연차수당을 계산합니다.","url":"https://gyesanhaja.vercel.app/pages/annual-leave.html","applicationCategory":"FinanceApplication","operatingSystem":"All","inLanguage":"ko","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"}}</script>
+</head>
+<body>
+<header>
+  <a href="../index.html"><h1>계산하자 💰</h1><p class="tagline">금융 계산기 모음</p></a>
+  <nav>
+    <a href="about.html">소개</a>
+    <a href="privacy.html">개인정보처리방침</a>
+    <button class="theme-toggle" id="themeToggle">🌙 다크</button>
+  </nav>
+</header>
+<script src="../js/theme.js"></script>
+<div class="ad-banner">광고 영역 (AdSense 728x90)</div>
+<div class="container">
+  <div class="calc-layout">
+    <div>
+      <div class="calc-box">
+        <h2>📆 연차 계산기</h2>
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:16px;">근로기준법 기준</p>
+        <div class="form-group">
+          <label>입사일</label>
+          <input type="date" id="joinDate">
+        </div>
+        <div class="form-group">
+          <label>기준일 (오늘 또는 원하는 날짜)</label>
+          <input type="date" id="calcDate">
+        </div>
+        <div class="form-group">
+          <label>일급 또는 통상시급 × 8 (연차수당 계산용, 원)</label>
+          <input type="number" id="dailyPay" placeholder="예: 80000 (선택)" min="0">
+        </div>
+        <button class="btn-calc" onclick="calculate()">계산하기</button>
+        <div class="result-box" id="result">
+          <div class="result-item"><span>근속 기간</span><span id="tenure"></span></div>
+          <div class="result-item"><span>발생 연차 (총)</span><span id="totalLeave"></span></div>
+          <div class="result-item"><span>이번 연도 발생 연차</span><span id="thisYear"></span></div>
+          <div class="result-item"><span>미사용 연차수당 (일급 기준)</span><span id="compensation"></span></div>
+        </div>
+      </div>
+      <div class="ad-result">광고 영역 (AdSense 336x280)</div>
+      <div class="info-section">
+        <h3>연차 발생 기준</h3>
+        <p>• <strong>1년 미만:</strong> 매월 개근 시 1일 발생 (최대 11일)<br>
+           • <strong>1년 이상:</strong> 15일 발생<br>
+           • <strong>3년 이상:</strong> 2년마다 1일 추가 (최대 25일)<br>
+           • 계속 근로 1년에 80% 이상 출근 시 15일 부여</p>
+      </div>
+      <div class="info-section">
+        <h3>연차 발생 예시</h3>
+        <p>• 근속 1년: 15일<br>
+           • 근속 3년: 16일<br>
+           • 근속 5년: 17일<br>
+           • 근속 10년: 19일<br>
+           • 근속 21년 이상: 25일 (상한)</p>
+      </div>
+      <div class="info-section">
+        <h3>자주 묻는 질문 (FAQ)</h3>
+        <dl>
+          <div class="faq-item">
+            <dt>Q. 연차를 안 쓰면 수당으로 받을 수 있나요?</dt>
+            <dd>A. 사용 촉진 제도를 시행한 경우 미사용 연차에 대해 수당 지급 의무가 없습니다. 그렇지 않은 경우 미사용 연차는 통상임금으로 보상해야 합니다.</dd>
+          </div>
+          <div class="faq-item">
+            <dt>Q. 퇴직 시 남은 연차는 어떻게 되나요?</dt>
+            <dd>A. 퇴직 시 잔여 연차는 연차수당으로 지급받을 수 있습니다.</dd>
+          </div>
+          <div class="faq-item">
+            <dt>Q. 5인 미만 사업장도 연차가 발생하나요?</dt>
+            <dd>A. 5인 미만 사업장은 근로기준법상 연차 규정이 적용되지 않습니다.</dd>
+          </div>
+        </dl>
+      </div>
+      <div class="share-section">
+        <h3>이 계산기 공유하기</h3>
+        <div class="share-buttons">
+          <button class="share-btn twitter" onclick="shareTwitter()">𝕏 공유</button>
+          <button class="share-btn facebook" onclick="shareFacebook()">Facebook 공유</button>
+          <button class="share-btn copy" onclick="copyLink()">🔗 링크 복사</button>
+        </div>
+      </div>
+      <div class="related-section">
+        <h3>관련 계산기</h3>
+        <div class="related-grid">
+          <a href="salary.html" class="related-card">💼 연봉 실수령액</a>
+          <a href="severance.html" class="related-card">👔 퇴직금</a>
+          <a href="weekly-holiday.html" class="related-card">📅 주휴수당</a>
+          <a href="unemployment.html" class="related-card">📋 실업급여</a>
+          <a href="health-insurance.html" class="related-card">🏥 건강보험료</a>
+        </div>
+      </div>
+    </div>
+    <div><div class="ad-side">광고 영역<br>(AdSense 300x250)</div></div>
+  </div>
+</div>
+<footer>
+  <p>© 2026 계산하자. All rights reserved.</p>
+  <p style="margin-top:8px;"><a href="about.html">소개</a><a href="privacy.html" style="margin-left:12px;">개인정보처리방침</a></p>
+  <p style="margin-top:8px; font-size:0.8rem; color:#666;">본 계산기는 참고용이며, 실제 연차는 회사 규정에 따라 다를 수 있습니다.</p>
+</footer>
+<script>
+function fmt(n) { return Math.round(n).toLocaleString('ko-KR') + '원'; }
+window.addEventListener('DOMContentLoaded', function() {
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('calcDate').value = today;
+});
+function calculate() {
+  const join = new Date(document.getElementById('joinDate').value);
+  const calc = new Date(document.getElementById('calcDate').value);
+  const dailyPay = parseFloat(document.getElementById('dailyPay').value) || 0;
+  if (!document.getElementById('joinDate').value) { alert('입사일을 입력해주세요.'); return; }
+  if (calc < join) { alert('기준일이 입사일보다 빠릅니다.'); return; }
+
+  const msPerDay = 1000 * 60 * 60 * 24;
+  const totalDays = Math.floor((calc - join) / msPerDay);
+  const years = Math.floor(totalDays / 365);
+  const months = Math.floor((totalDays % 365) / 30);
+
+  let totalLeave = 0;
+  let thisYear = 0;
+
+  if (years < 1) {
+    totalLeave = Math.floor(totalDays / 30);
+    thisYear = totalLeave;
+  } else {
+    const baseLeave = 15;
+    const extra = Math.floor((years - 1) / 2);
+    thisYear = Math.min(baseLeave + extra, 25);
+    totalLeave = thisYear;
+  }
+
+  const comp = dailyPay > 0 ? fmt(totalLeave * dailyPay) : '일급 미입력';
+  document.getElementById('tenure').textContent = years + '년 ' + months + '개월';
+  document.getElementById('totalLeave').textContent = totalLeave + '일';
+  document.getElementById('thisYear').textContent = thisYear + '일';
+  document.getElementById('compensation').textContent = comp;
+  document.getElementById('result').classList.add('show');
+}
+function shareTwitter(){window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(location.href)+'&text='+encodeURIComponent(document.title),'_blank');}
+function shareFacebook(){window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),'_blank');}
+function copyLink(){navigator.clipboard.writeText(location.href).then(function(){alert('링크가 복사되었습니다!');});}
+</script>
+</body>
+</html>

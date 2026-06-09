@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>이자 계산기 (단리/복리) - 계산하자</title>
+  <meta name="description" content="단리와 복리 방식으로 이자를 계산합니다. 원금, 이율, 기간을 입력하면 최종 금액과 이자를 즉시 확인하세요.">
+  <meta name="keywords" content="이자계산기, 단리계산기, 복리계산기, 이자계산, 투자수익계산">
+  <link rel="stylesheet" href="../css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header>
+  <a href="../index.html">
+    <h1>계산하자 💰</h1>
+    <p class="tagline">금융 계산기 모음</p>
+  </a>
+  <nav>
+    <a href="about.html">소개</a>
+    <a href="privacy.html">개인정보처리방침</a>
+  </nav>
+</header>
+
+<div class="ad-banner">광고 영역 (AdSense 728x90)</div>
+
+<div class="container">
+  <div class="calc-layout">
+    <div>
+      <div class="calc-box">
+        <h2>📈 이자 계산기</h2>
+
+        <div class="form-group">
+          <label>원금 (원)</label>
+          <input type="number" id="principal" placeholder="예: 10000000" min="0">
+        </div>
+        <div class="form-group">
+          <label>연 이자율 (%)</label>
+          <input type="number" id="rate" placeholder="예: 3.5" step="0.01" min="0">
+        </div>
+        <div class="form-group">
+          <label>기간 (년)</label>
+          <input type="number" id="years" placeholder="예: 3" min="1">
+        </div>
+        <div class="form-group">
+          <label>이자 방식</label>
+          <select id="method">
+            <option value="simple">단리</option>
+            <option value="compound">복리 (연복리)</option>
+            <option value="compound_month">복리 (월복리)</option>
+          </select>
+        </div>
+
+        <button class="btn-calc" onclick="calculate()">계산하기</button>
+
+        <div class="result-box" id="result">
+          <div class="result-item"><span>원금</span><span id="principalOut"></span></div>
+          <div class="result-item"><span>이자</span><span id="interest"></span></div>
+          <div class="result-item"><span>최종 금액</span><span id="total"></span></div>
+        </div>
+      </div>
+
+      <div class="ad-result">광고 영역 (AdSense 336x280)</div>
+
+      <div class="info-section">
+        <h3>단리 vs 복리 차이</h3>
+        <p><strong>단리</strong>는 원금에만 이자가 붙는 방식입니다. 계산이 단순하고 예측하기 쉬워 단기 예금에 주로 사용됩니다.</p>
+        <p><strong>복리</strong>는 이자에도 이자가 붙는 방식입니다. 기간이 길수록 단리 대비 수익 차이가 크게 벌어집니다. 장기 투자에 유리합니다.</p>
+      </div>
+
+      <div class="info-section">
+        <h3>자주 묻는 질문 (FAQ)</h3>
+        <dl>
+          <div class="faq-item">
+            <dt>Q. 은행 예금은 단리인가요, 복리인가요?</dt>
+            <dd>A. 일반 예금은 단리가 많고, 복리 상품도 일부 있습니다. 상품 약관을 확인하세요.</dd>
+          </div>
+          <div class="faq-item">
+            <dt>Q. 월복리와 연복리 차이는?</dt>
+            <dd>A. 월복리는 매달 이자가 원금에 더해지므로 연복리보다 최종 금액이 더 많습니다.</dd>
+          </div>
+          <div class="faq-item">
+            <dt>Q. 이자소득세는 반영되나요?</dt>
+            <dd>A. 본 계산기는 세전 기준입니다. 실제 수령액은 이자소득세(15.4%) 차감 후 금액입니다.</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+    <div>
+      <div class="ad-side">광고 영역<br>(AdSense 300x250)</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 계산하자. All rights reserved.</p>
+  <p style="margin-top:8px;"><a href="about.html">소개</a><a href="privacy.html" style="margin-left:12px;">개인정보처리방침</a></p>
+  <p style="margin-top:8px; font-size:0.8rem; color:#666;">본 계산기는 참고용이며, 실제 금융 상품과 차이가 있을 수 있습니다.</p>
+</footer>
+
+<script>
+function fmt(n) { return Math.round(n).toLocaleString('ko-KR') + '원'; }
+
+function calculate() {
+  const P = parseFloat(document.getElementById('principal').value);
+  const r = parseFloat(document.getElementById('rate').value) / 100;
+  const y = parseFloat(document.getElementById('years').value);
+  const method = document.getElementById('method').value;
+
+  if (!P || !r || !y) { alert('모든 항목을 입력해주세요.'); return; }
+
+  let total;
+  if (method === 'simple') {
+    total = P * (1 + r * y);
+  } else if (method === 'compound') {
+    total = P * Math.pow(1 + r, y);
+  } else {
+    total = P * Math.pow(1 + r / 12, 12 * y);
+  }
+
+  document.getElementById('principalOut').textContent = fmt(P);
+  document.getElementById('interest').textContent = fmt(total - P);
+  document.getElementById('total').textContent = fmt(total);
+  document.getElementById('result').classList.add('show');
+}
+</script>
+</body>
+</html>
